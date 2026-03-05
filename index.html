@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andrea Büfé – Itallap</title>
+
+  <!-- Betűk (elegáns) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#efe7dc;
+      --paper:#f4eee6;
+      --ink:#1a1a1a;
+      --muted:rgba(26,26,26,.68);
+      --line:rgba(26,26,26,.14);
+      --shadow: 0 18px 55px rgba(0,0,0,.12);
+      --radius:22px;
+
+      --topbarH: 74px;      /* FIX NAV magasság */
+      --chipH: 44px;
+
+      --container: 1180px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 600px at 50% 0%, rgba(0,0,0,.06), transparent 55%),
+        linear-gradient(180deg, #f6f0e8, #efe7dc);
+      padding-top: var(--topbarH);
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .container{ max-width: var(--container); margin: 0 auto; padding: 0 22px; }
+
+    /* =========================
+       FIX TOPBAR
+       ========================= */
+    .topbar{
+      position: fixed;
+      top:0; left:0; right:0;
+      height: var(--topbarH);
+      z-index: 1000;
+      background: rgba(244,238,230,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar .row{
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width: 240px;
+    }
+    .brand .mark{
+      width:34px; height:34px;
+      border-radius:10px;
+      border:1px solid rgba(26,26,26,.22);
+      background: linear-gradient(180deg, rgba(255,255,255,.65), rgba(0,0,0,.03));
+      box-shadow: 0 10px 26px rgba(0,0,0,.08);
+    }
+    .brand .t1{
+      font-family:"Cormorant Garamond", serif;
+      font-weight: 700;
+      letter-spacing:.06em;
+      font-size: 18px;
+      line-height:1;
+    }
+    .brand .t2{
+      display:block;
+      margin-top:3px;
+      font-size: 11px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color: rgba(26,26,26,.55);
+    }
+
+    /* Desktop kategóriák */
+    .nav{
+      display:flex; align-items:center; gap:18px;
+      justify-content:center;
+      flex: 1 1 auto;
+      flex-wrap: wrap;
+      line-height: 1;
+    }
+    .nav a{
+      font-size: 11px;
+      letter-spacing:.20em;
+      text-transform:uppercase;
+      color: rgba(26,26,26,.78);
+      padding: 10px 8px;
+      position:relative;
+      white-space: nowrap;
+    }
+    .nav a::after{
+      content:"";
+      position:absolute; left:8px; right:8px; bottom:6px;
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(26,26,26,.55), transparent);
+      opacity:0;
+      transform: translateY(4px);
+      transition: .22s ease;
+    }
+    .nav a:hover{ color: rgba(26,26,26,.95); }
+    .nav a:hover::after{ opacity:1; transform: translateY(0); }
+
+    .actions{
+      display:flex; align-items:center; justify-content:flex-end;
+      min-width: 200px;
+      padding-right: 14px;
+    }
+    .btn{
+      height: 40px;
+      padding: 0 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(26,26,26,.22);
+      background: rgba(255,255,255,.55);
+      font-size: 12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      cursor:pointer;
+      transition:.18s ease;
+      white-space: nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 14px 30px rgba(0,0,0,.08); }
+
+    /* =========================
+       HERO
+       ========================= */
+    .hero{
+      position: relative;
+      min-height: 340px;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(900px 520px at 50% 35%, rgba(0,0,0,.10), rgba(0,0,0,.45)),
+        url("ital-hero.jpg") center/cover no-repeat;
+      display:grid;
+      place-items:center;
+      padding: 28px 0;
+    }
+    .hero .panel{
+      width: min(820px, calc(100% - 44px));
+      background: rgba(244,238,230,.92);
+      border: 1px solid rgba(26,26,26,.14);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      text-align:center;
+      padding: 22px 18px;
+    }
+    .kicker{
+      font-size: 12px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color: rgba(26,26,26,.65);
+      margin-bottom: 6px;
+    }
+    .hero h1{
+      margin: 0;
+      font-family:"Cormorant Garamond", serif;
+      font-weight: 700;
+      letter-spacing:.18em;
+      font-size: 44px;
+      line-height: 1;
+    }
+    .hero p{
+      margin: 10px auto 0;
+      max-width: 620px;
+      font-size: 13px;
+      color: rgba(26,26,26,.70);
+      line-height: 1.6;
+    }
+
+    /* =========================
+       MOBIL CHIP MENÜ (sticky)
+       ========================= */
+    .mobile-chips{
+      display:none;
+      position: sticky;
+      top: var(--topbarH);
+      z-index: 900;
+      background: rgba(244,238,230,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .chips{
+      display:flex;
+      gap:10px;
+      padding: 10px 12px;
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .chips::-webkit-scrollbar{ display:none; }
+
+    .chip{
+      flex: 0 0 auto;
+      height: var(--chipH);
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(26,26,26,.18);
+      background: rgba(255,255,255,.55);
+      display:flex;
+      align-items:center;
+      font-size: 12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color: rgba(26,26,26,.75);
+      transition:.18s ease;
+      white-space: nowrap;
+    }
+    .chip:hover{ transform: translateY(-1px); }
+    .chip.active{
+      border-color: rgba(26,26,26,.45);
+      color: rgba(26,26,26,.95);
+      background: rgba(255,255,255,.80);
+    }
+
+    /* =========================
+       SZEKCIÓK
+       ========================= */
+    .section{
+      padding: 34px 0 10px;
+      background: linear-gradient(180deg, rgba(244,238,230,.65), rgba(239,231,220,.55));
+    }
+    .title-row{
+      text-align:center;
+      padding: 16px 0 6px;
+    }
+    .title-row .small{
+      font-size: 12px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color: rgba(26,26,26,.55);
+    }
+    .title-row h2{
+      margin: 10px 0 0;
+      font-family:"Cormorant Garamond", serif;
+      font-weight: 700;
+      letter-spacing:.18em;
+      font-size: 28px;
+    }
+    .divider{
+      margin: 18px auto 0;
+      width: min(720px, 92%);
+      height: 1px;
+      background: rgba(26,26,26,.16);
+    }
+
+    .block{
+      padding: 30px 0 14px;
+    }
+    .block h3{
+      margin: 0 0 12px;
+      font-family:"Cormorant Garamond", serif;
+      font-weight: 700;
+      letter-spacing:.14em;
+      font-size: 20px;
+      text-transform:uppercase;
+    }
+
+    /* ✅ 10 elem / kategória */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      padding-bottom: 18px;
+    }
+    .card{
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(26,26,26,.12);
+      border-radius: 20px;
+      overflow:hidden;
+      box-shadow: 0 10px 28px rgba(0,0,0,.06);
+      transition: .18s ease;
+    }
+    .card:hover{ transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0,0,0,.10); }
+
+    .thumb{
+      height: 190px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: rgba(0,0,0,.08);
+    }
+
+    .info{
+      padding: 14px 14px 16px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .name{
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .desc{
+      margin-top: 6px;
+      font-size: 12px;
+      color: rgba(26,26,26,.62);
+      line-height: 1.45;
+    }
+    .price{
+      font-family:"Cormorant Garamond", serif;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing:.06em;
+      white-space: nowrap;
+    }
+
+    section[id]{ scroll-margin-top: calc(var(--topbarH) + 14px); }
+
+    footer{
+      padding: 26px 0;
+      border-top:1px solid var(--line);
+      color: rgba(26,26,26,.58);
+      font-size: 12px;
+      text-align:center;
+      background: rgba(244,238,230,.55);
+    }
+
+    /* =========================
+       ✅ RESPONSIVE
+       ========================= */
+    @media (max-width: 1100px){
+      .nav{ gap: 10px; }
+      .nav a{ font-size: 10.5px; letter-spacing:.16em; }
+    }
+    @media (max-width: 980px){
+      .nav{ display:none; }
+      .mobile-chips{ display:block; }
+      .brand{ min-width:auto; }
+      .actions{ min-width:auto; padding-right: 10px; }
+      .hero{ min-height: 300px; }
+      .hero h1{ font-size: 38px; }
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+      .thumb{ height: 170px; }
+    }
+    @media (max-width: 560px){
+      :root{ --topbarH: 70px; }
+      body{ padding-top: var(--topbarH); }
+      .btn{ padding: 0 12px; height: 38px; border-radius: 12px; }
+      .hero .panel{ padding: 18px 14px; }
+      .hero h1{ font-size: 34px; }
+      .grid{ grid-template-columns: 1fr; }
+      .thumb{ height: 185px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="container">
+      <div class="row">
+        <a class="brand" href="#top" aria-label="Andrea Büfé - Itallap">
+          <div class="mark" aria-hidden="true"></div>
+          <div>
+            <div class="t1">Andrea Büfé</div>
+            <span class="t2">Itallap</span>
+          </div>
+        </a>
+
+        <!-- ✅ ÚJ KATEGÓRIÁK (desktop) -->
+        <nav class="nav" aria-label="Kategóriák (desktop)">
+          <a href="#uveges">Üveges sörök</a>
+          <a href="#dobozos">Dobozos sörök</a>
+          <a href="#csapolt">Csapolt sörök</a>
+          <a href="#rovid">Rövid italok</a>
+          <a href="#kave">Kávé</a>
+          <a href="#energia">Energia italok</a>
+          <a href="#uditok">Üdítők</a>
+          <a href="#asvanyviz">Ásványvíz</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn" href="https://norby9898.github.io/Adnrea-b-f-miniweb/">Főoldal</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ✅ ÚJ KATEGÓRIÁK (mobil chip menü) -->
+  <div class="mobile-chips" aria-label="Kategóriák (mobil)">
+    <div class="chips">
+      <a class="chip" href="#uveges" data-chip="uveges">Üveges</a>
+      <a class="chip" href="#dobozos" data-chip="dobozos">Dobozos</a>
+      <a class="chip" href="#csapolt" data-chip="csapolt">Csapolt</a>
+      <a class="chip" href="#rovid" data-chip="rovid">Rövid</a>
+      <a class="chip" href="#kave" data-chip="kave">Kávé</a>
+      <a class="chip" href="#energia" data-chip="energia">Energia</a>
+      <a class="chip" href="#uditok" data-chip="uditok">Üdítők</a>
+      <a class="chip" href="#asvanyviz" data-chip="asvanyviz">Ásványvíz</a>
+    </div>
+  </div>
+
+  <section class="hero" id="top">
+    <div class="panel">
+      <div class="kicker">Andrea Büfé</div>
+      <h1>ITALLAP</h1>
+      <p>Válassz kategóriát fent, és egy kattintással a megfelelő részhez ugrunk.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="title-row">
+        <div class="small">Kategóriák</div>
+        <h2>ÜVEGES SÖRÖK · DOBOZOS SÖRÖK · CSAPOLT SÖRÖK · RÖVID ITALOK · KÁVÉ · ENERGIA ITALOK · ÜDÍTŐK · ÁSVÁNYVÍZ</h2>
+        <div class="divider"></div>
+      </div>
+
+      <!--
+        ======================================================
+        ✅ 10 DB HELY / KATEGÓRIA
+        ✅ KÉPEK NEVE: kategória-rövidítés + sorszám
+           uveg-01.jpg ... uveg-10.jpg
+           dob-01.jpg  ... dob-10.jpg
+           csap-01.jpg ... csap-10.jpg
+           rovid-01.jpg... rovid-10.jpg
+           kave-01.jpg ... kave-10.jpg
+           en-01.jpg   ... en-10.jpg
+           udi-01.jpg  ... udi-10.jpg
+           viz-01.jpg  ... viz-10.jpg
+        (A képek az index.html mellé mennek, ugyanabba a mappába!)
+        ======================================================
+      -->
+
+      <!-- ÜVEGES SÖRÖK -->
+      <section class="block" id="uveges">
+        <h3>Üveges sörök</h3>
+        <div class="grid">
+          <div class="card"><div class="thumb" style="background-image:url('uveg-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜVEGES-01 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜVEGES-02 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜVEGES-03 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜVEGES-04 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜVEGES-05 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜVEGES-06 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜVEGES-07 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜVEGES-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜVEGES-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜVEGES-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+        </div>
+      </section>
+
+      <!-- DOBOZOS SÖRÖK -->
+      <section class="block" id="dobozos">
+        <h3>Dobozos sörök</h3>
+        <div class="grid">
+          <div class="card"><div class="thumb" style="background-image:url('dob-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-01 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-02 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-03 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-04 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-05 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-06 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-07 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+        </div>
+      </section>
+
+      <!-- CSAPOLT SÖRÖK -->
+      <section class="block" id="csapolt">
+        <h3>Csapolt sörök</h3>
+        <div class="grid">
+          <div class="card"><div class="thumb" style="background-image:url('csap-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-01 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('csap-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-02 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('csap-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-03 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('csap-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-04 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('csap-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-05 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('csap-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-06 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('csap-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-07 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('csap-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('csap-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('csap-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+        </div>
+      </section>
+
+      <!-- RÖVID ITALOK -->
+      <section class="block" id="rovid">
+        <h3>Rövid italok</h3>
+        <div class="grid">
+          <div class="card"><div class="thumb" style="background-image:url('rovid-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">RÖVID-01 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">RÖVID-02 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">RÖVID-03 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">RÖVID-04 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">RÖVID-05 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">RÖVID-06 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">RÖVID-07 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">RÖVID-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">RÖVID-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">RÖVID-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+        </div>
+      </section>
+
+      <!-- KÁVÉ -->
+      <section class="block" id="kave">
+        <h3>Kávé</h3>
+        <div class="grid">
+          <div class="card"><div class="thumb" style="background-image:url('kave-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">KÁVÉ-01 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">KÁVÉ-02 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">KÁVÉ-03 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">KÁVÉ-04 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">KÁVÉ-05 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">KÁVÉ-06 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">KÁVÉ-07 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">KÁVÉ-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">KÁVÉ-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">KÁVÉ-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+        </div>
+      </section>
+
+      <!-- ENERGIA ITALOK -->
+      <section class="block" id="energia">
+        <h3>Energia italok</h3>
+        <div class="grid">
+          <div class="card"><div class="thumb" style="background-image:url('en-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-01 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('en-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-02 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('en-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-03 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('en-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-04 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('en-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-05 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('en-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-06 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('en-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-07 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('en-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('en-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('en-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+        </div>
+      </section>
+
+      <!-- ÜDÍTŐK -->
+      <section class="block" id="uditok">
+        <h3>Üdítők</h3>
+        <div class="grid">
+          <div class="card"><div class="thumb" style="background-image:url('udi-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-01 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('udi-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-02 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('udi-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-03 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('udi-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-04 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('udi-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-05 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('udi-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-06 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('udi-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-07 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('udi-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('udi-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('udi-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+        </div>
+      </section>
+
+      <!-- ÁSVÁNYVÍZ -->
+      <section class="block" id="asvanyviz">
+        <h3>Ásványvíz</h3>
+        <div class="grid">
+          <div class="card"><div class="thumb" style="background-image:url('viz-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-01 NÉV</div><div class="desc">Szénsavas / szénsavmentes.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('viz-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-02 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('viz-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-03 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('viz-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-04 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('viz-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-05 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('viz-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-06 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('viz-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-07 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('viz-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('viz-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('viz-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
+        </div>
+      </section>
+
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Andrea Büfé – Itallap
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const chips = Array.from(document.querySelectorAll(".chip"));
+    const sectionIds = ["uveges","dobozos","csapolt","rovid","kave","energia","uditok","asvanyviz"];
+    const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+    const setActive = (id) => {
+      chips.forEach(c => c.classList.toggle("active", c.dataset.chip === id));
+    };
+
+    const topbarH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--topbarH')) || 74;
+
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if(visible) setActive(visible.target.id);
+    }, {
+      root: null,
+      threshold: [0.15, 0.25, 0.4, 0.6],
+      rootMargin: `-${topbarH}px 0px -60% 0px`
+    });
+
+    sections.forEach(s => io.observe(s));
+    chips.forEach(c => c.addEventListener("click", () => setActive(c.dataset.chip)));
+    setActive("uveges");
+  </script>
+
+  <!--
+    ✅ KÉPEK AZ index.html MELLÉ:
+    - ital-hero.jpg
+
+    10-10 kép / kategória:
+    - uveg-01.jpg ... uveg-10.jpg
+    - dob-01.jpg  ... dob-10.jpg
+    - csap-01.jpg ... csap-10.jpg
+    - rovid-01.jpg... rovid-10.jpg
+    - kave-01.jpg ... kave-10.jpg
+    - en-01.jpg   ... en-10.jpg
+    - udi-01.jpg  ... udi-10.jpg
+    - viz-01.jpg  ... viz-10.jpg
+  -->
+</body>
+</html>
