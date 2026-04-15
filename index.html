@@ -5,54 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Andrea Büfé – Itallap</title>
 
-  <!-- Betűk (elegáns) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#efe7dc;
-      --paper:#f4eee6;
-      --ink:#1a1a1a;
-      --muted:rgba(26,26,26,.68);
-      --line:rgba(26,26,26,.14);
-      --shadow: 0 18px 55px rgba(0,0,0,.12);
-      --radius:22px;
+      --bg:#ece2d4;
+      --bg2:#f6efe6;
+      --paper:rgba(255,255,255,.46);
+      --paper-strong:rgba(255,255,255,.62);
+      --ink:#171411;
+      --muted:rgba(23,20,17,.66);
+      --line:rgba(23,20,17,.12);
+      --line-strong:rgba(23,20,17,.18);
+      --gold:#b68a45;
+      --gold-soft:#d3b27a;
+      --gold-light:#ead4ab;
+      --gold-deep:#8f6831;
+      --shadow-sm:0 10px 30px rgba(0,0,0,.08);
+      --shadow:0 18px 50px rgba(0,0,0,.12);
+      --shadow-lg:0 28px 75px rgba(0,0,0,.18);
+      --radius:24px;
 
-      --topbarH: 74px;      /* FIX NAV magasság */
-      --chipH: 44px;
+      --topbarH:74px;
+      --chipH:44px;
 
-      --container: 1180px;
+      --container:1180px;
     }
 
     *{ box-sizing:border-box; }
     html{ scroll-behavior:smooth; }
+
     body{
       margin:0;
       color:var(--ink);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background:
-        radial-gradient(900px 600px at 50% 0%, rgba(0,0,0,.06), transparent 55%),
-        linear-gradient(180deg, #f6f0e8, #efe7dc);
+        radial-gradient(900px 600px at 10% 0%, rgba(255,255,255,.52), transparent 55%),
+        radial-gradient(1100px 700px at 90% 10%, rgba(182,138,69,.12), transparent 48%),
+        linear-gradient(180deg, #f8f1e8 0%, #efe4d7 45%, #e7dccf 100%);
       padding-top: var(--topbarH);
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        radial-gradient(rgba(255,255,255,.12) 1px, transparent 1px);
+      background-size:24px 24px;
+      opacity:.16;
+      mix-blend-mode:soft-light;
+      z-index:0;
     }
 
     a{ color:inherit; text-decoration:none; }
-    .container{ max-width: var(--container); margin: 0 auto; padding: 0 22px; }
 
-    /* =========================
-       FIX TOPBAR
-       ========================= */
-    .topbar{
-      position: fixed;
-      top:0; left:0; right:0;
-      height: var(--topbarH);
-      z-index: 1000;
-      background: rgba(244,238,230,.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
+    .container{
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 22px;
+      position:relative;
+      z-index:1;
     }
+
+    .topbar{
+      position:fixed;
+      top:0; left:0; right:0;
+      height:var(--topbarH);
+      z-index:1000;
+      background: linear-gradient(180deg, rgba(255,255,255,.58), rgba(244,236,227,.72));
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      border-bottom:1px solid rgba(255,255,255,.45);
+      box-shadow:0 8px 30px rgba(0,0,0,.05);
+    }
+
+    .topbar::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(182,138,69,.45), transparent);
+    }
+
     .topbar .row{
       height:100%;
       display:flex;
@@ -62,303 +101,633 @@
     }
 
     .brand{
-      display:flex; align-items:center; gap:12px;
-      min-width: 240px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:240px;
     }
+
     .brand .mark{
-      width:34px; height:34px;
-      border-radius:10px;
-      border:1px solid rgba(26,26,26,.22);
-      background: linear-gradient(180deg, rgba(255,255,255,.65), rgba(0,0,0,.03));
-      box-shadow: 0 10px 26px rgba(0,0,0,.08);
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(182,138,69,.35);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.95), rgba(255,255,255,.3) 32%, transparent 33%),
+        linear-gradient(135deg, rgba(234,212,171,.95), rgba(182,138,69,.92));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.55),
+        0 10px 24px rgba(182,138,69,.18);
     }
+
+    .brand .mark::after{
+      content:"";
+      position:absolute;
+      inset:7px;
+      border-radius:9px;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
     .brand .t1{
       font-family:"Cormorant Garamond", serif;
-      font-weight: 700;
-      letter-spacing:.06em;
-      font-size: 18px;
+      font-weight:700;
+      letter-spacing:.08em;
+      font-size:20px;
       line-height:1;
     }
+
     .brand .t2{
       display:block;
       margin-top:3px;
-      font-size: 11px;
+      font-size:11px;
+      letter-spacing:.26em;
+      text-transform:uppercase;
+      color:rgba(23,20,17,.52);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      justify-content:center;
+      flex:1 1 auto;
+      flex-wrap:wrap;
+      line-height:1;
+    }
+
+    .nav a{
+      font-size:11px;
       letter-spacing:.22em;
       text-transform:uppercase;
-      color: rgba(26,26,26,.55);
+      color:rgba(23,20,17,.75);
+      padding:10px 8px;
+      position:relative;
+      white-space:nowrap;
+      transition:.22s ease;
     }
 
-    /* Desktop kategóriák */
-    .nav{
-      display:flex; align-items:center; gap:18px;
-      justify-content:center;
-      flex: 1 1 auto;
-      flex-wrap: wrap;
-      line-height: 1;
-    }
-    .nav a{
-      font-size: 11px;
-      letter-spacing:.20em;
-      text-transform:uppercase;
-      color: rgba(26,26,26,.78);
-      padding: 10px 8px;
-      position:relative;
-      white-space: nowrap;
-    }
-    .nav a::after{
+    .nav a::before{
       content:"";
-      position:absolute; left:8px; right:8px; bottom:6px;
+      position:absolute;
+      left:50%;
+      bottom:7px;
+      width:0;
       height:1px;
-      background: linear-gradient(90deg, transparent, rgba(26,26,26,.55), transparent);
-      opacity:0;
-      transform: translateY(4px);
-      transition: .22s ease;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform:translateX(-50%);
+      transition:.25s ease;
     }
-    .nav a:hover{ color: rgba(26,26,26,.95); }
-    .nav a:hover::after{ opacity:1; transform: translateY(0); }
+
+    .nav a:hover{
+      color:rgba(23,20,17,.98);
+      transform:translateY(-1px);
+    }
+
+    .nav a:hover::before{
+      width:calc(100% - 16px);
+    }
 
     .actions{
-      display:flex; align-items:center; justify-content:flex-end;
-      min-width: 200px;
-      padding-right: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      min-width:200px;
+      padding-right:14px;
     }
+
     .btn{
-      height: 40px;
-      padding: 0 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(26,26,26,.22);
-      background: rgba(255,255,255,.55);
-      font-size: 12px;
+      height:42px;
+      padding:0 16px;
+      border-radius:14px;
+      border:1px solid rgba(182,138,69,.32);
+      background: linear-gradient(180deg, rgba(255,255,255,.82), rgba(247,241,233,.72));
+      color:var(--ink);
+      font-size:12px;
       letter-spacing:.18em;
       text-transform:uppercase;
       cursor:pointer;
-      transition:.18s ease;
-      white-space: nowrap;
+      transition:.22s ease;
+      white-space:nowrap;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.75),
+        0 12px 25px rgba(0,0,0,.06);
     }
-    .btn:hover{ transform: translateY(-1px); box-shadow: 0 14px 30px rgba(0,0,0,.08); }
 
-    /* =========================
-       HERO
-       ========================= */
+    .btn:hover{
+      transform:translateY(-2px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.85),
+        0 16px 34px rgba(0,0,0,.10);
+      border-color:rgba(182,138,69,.48);
+    }
+
     .hero{
-      position: relative;
-      min-height: 340px;
-      border-bottom: 1px solid var(--line);
+      position:relative;
+      min-height:420px;
+      border-bottom:1px solid var(--line);
       background:
-        radial-gradient(900px 520px at 50% 35%, rgba(0,0,0,.10), rgba(0,0,0,.45)),
+        linear-gradient(180deg, rgba(18,12,8,.16), rgba(18,12,8,.45)),
+        radial-gradient(1000px 540px at 50% 20%, rgba(255,255,255,.08), transparent 55%),
         url("ital-hero.jpg") center/cover no-repeat;
       display:grid;
       place-items:center;
-      padding: 28px 0;
-    }
-    .hero .panel{
-      width: min(820px, calc(100% - 44px));
-      background: rgba(244,238,230,.92);
-      border: 1px solid rgba(26,26,26,.14);
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-      text-align:center;
-      padding: 22px 18px;
-    }
-    .kicker{
-      font-size: 12px;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      color: rgba(26,26,26,.65);
-      margin-bottom: 6px;
-    }
-    .hero h1{
-      margin: 0;
-      font-family:"Cormorant Garamond", serif;
-      font-weight: 700;
-      letter-spacing:.18em;
-      font-size: 44px;
-      line-height: 1;
-    }
-    .hero p{
-      margin: 10px auto 0;
-      max-width: 620px;
-      font-size: 13px;
-      color: rgba(26,26,26,.70);
-      line-height: 1.6;
+      padding:34px 0;
+      overflow:hidden;
     }
 
-    /* =========================
-       MOBIL CHIP MENÜ (sticky)
-       ========================= */
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.04), transparent 20%, transparent 80%, rgba(255,255,255,.04)),
+        linear-gradient(180deg, rgba(255,255,255,.05), transparent 40%, rgba(0,0,0,.08));
+      pointer-events:none;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      width:540px;
+      height:540px;
+      border-radius:50%;
+      top:-220px;
+      right:-120px;
+      background: radial-gradient(circle, rgba(234,212,171,.18), transparent 65%);
+      filter: blur(20px);
+      pointer-events:none;
+    }
+
+    .hero .panel{
+      width:min(860px, calc(100% - 44px));
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,.12)),
+        rgba(244,238,230,.72);
+      border:1px solid rgba(255,255,255,.34);
+      border-radius:28px;
+      box-shadow:var(--shadow-lg);
+      text-align:center;
+      padding:30px 22px;
+      backdrop-filter: blur(12px) saturate(130%);
+      -webkit-backdrop-filter: blur(12px) saturate(130%);
+      position:relative;
+      overflow:hidden;
+      animation: fadeUp .9s ease both;
+    }
+
+    .hero .panel::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,.22) 38%, transparent 52%);
+      transform: translateX(-120%);
+      animation: shine 5.5s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    .kicker{
+      font-size:12px;
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      color:rgba(23,20,17,.62);
+      margin-bottom:8px;
+    }
+
+    .hero h1{
+      margin:0;
+      font-family:"Cormorant Garamond", serif;
+      font-weight:700;
+      letter-spacing:.20em;
+      font-size:52px;
+      line-height:1;
+      text-shadow:0 1px 0 rgba(255,255,255,.25);
+    }
+
+    .hero p{
+      margin:12px auto 0;
+      max-width:650px;
+      font-size:14px;
+      color:rgba(23,20,17,.74);
+      line-height:1.7;
+    }
+
     .mobile-chips{
       display:none;
-      position: sticky;
-      top: var(--topbarH);
-      z-index: 900;
-      background: rgba(244,238,230,.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
+      position:sticky;
+      top:var(--topbarH);
+      z-index:900;
+      background: linear-gradient(180deg, rgba(255,255,255,.58), rgba(244,236,227,.74));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom:1px solid rgba(255,255,255,.42);
+      box-shadow:0 8px 24px rgba(0,0,0,.04);
     }
+
     .chips{
       display:flex;
       gap:10px;
-      padding: 10px 12px;
+      padding:10px 12px;
       overflow:auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
     }
+
     .chips::-webkit-scrollbar{ display:none; }
 
     .chip{
-      flex: 0 0 auto;
-      height: var(--chipH);
-      padding: 0 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(26,26,26,.18);
-      background: rgba(255,255,255,.55);
+      flex:0 0 auto;
+      height:var(--chipH);
+      padding:0 14px;
+      border-radius:999px;
+      border:1px solid rgba(23,20,17,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.42));
       display:flex;
       align-items:center;
-      font-size: 12px;
+      font-size:12px;
       letter-spacing:.18em;
       text-transform:uppercase;
-      color: rgba(26,26,26,.75);
+      color:rgba(23,20,17,.75);
       transition:.18s ease;
-      white-space: nowrap;
-    }
-    .chip:hover{ transform: translateY(-1px); }
-    .chip.active{
-      border-color: rgba(26,26,26,.45);
-      color: rgba(26,26,26,.95);
-      background: rgba(255,255,255,.80);
+      white-space:nowrap;
+      box-shadow:0 8px 18px rgba(0,0,0,.05);
     }
 
-    /* =========================
-       SZEKCIÓK
-       ========================= */
-    .section{
-      padding: 34px 0 10px;
-      background: linear-gradient(180deg, rgba(244,238,230,.65), rgba(239,231,220,.55));
+    .chip:hover{ transform:translateY(-1px); }
+
+    .chip.active{
+      border-color:rgba(182,138,69,.45);
+      color:rgba(23,20,17,.96);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(247,239,229,.78));
+      box-shadow:0 10px 24px rgba(182,138,69,.14);
     }
+
+    .section{
+      padding:42px 0 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0)),
+        linear-gradient(180deg, rgba(244,238,230,.52), rgba(239,231,220,.46));
+      position:relative;
+    }
+
+    .section::before{
+      content:"";
+      position:absolute;
+      top:0; left:0; right:0;
+      height:140px;
+      background: linear-gradient(180deg, rgba(255,255,255,.16), transparent);
+      pointer-events:none;
+    }
+
     .title-row{
       text-align:center;
-      padding: 16px 0 6px;
+      padding:10px 0 10px;
+      animation: fadeUp .8s ease both;
     }
+
     .title-row .small{
-      font-size: 12px;
-      letter-spacing:.22em;
+      font-size:12px;
+      letter-spacing:.28em;
       text-transform:uppercase;
-      color: rgba(26,26,26,.55);
+      color:rgba(23,20,17,.54);
     }
+
     .title-row h2{
-      margin: 10px 0 0;
+      margin:12px 0 0;
       font-family:"Cormorant Garamond", serif;
-      font-weight: 700;
-      letter-spacing:.18em;
-      font-size: 28px;
+      font-weight:700;
+      letter-spacing:.14em;
+      font-size:32px;
+      line-height:1.35;
     }
+
     .divider{
-      margin: 18px auto 0;
-      width: min(720px, 92%);
-      height: 1px;
-      background: rgba(26,26,26,.16);
+      margin:20px auto 0;
+      width:min(760px, 92%);
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(182,138,69,.55), transparent);
     }
 
     .block{
-      padding: 30px 0 14px;
-    }
-    .block h3{
-      margin: 0 0 12px;
-      font-family:"Cormorant Garamond", serif;
-      font-weight: 700;
-      letter-spacing:.14em;
-      font-size: 20px;
-      text-transform:uppercase;
+      padding:34px 0 18px;
+      animation: fadeUp .8s ease both;
     }
 
-    /* ✅ 10 elem / kategória */
+    .block h3{
+      margin:0 0 18px;
+      font-family:"Cormorant Garamond", serif;
+      font-weight:700;
+      letter-spacing:.18em;
+      font-size:24px;
+      text-transform:uppercase;
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .block h3::before,
+    .block h3::after{
+      content:"";
+      height:1px;
+      background: linear-gradient(90deg, rgba(182,138,69,.55), transparent);
+      flex:1;
+    }
+
+    .block h3::before{
+      max-width:50px;
+    }
+
+    .block h3::after{
+      background: linear-gradient(90deg, transparent, rgba(182,138,69,.25));
+    }
+
     .grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      padding-bottom: 18px;
+      gap:22px;
+      padding-bottom:18px;
     }
+
     .card{
-      background: rgba(255,255,255,.55);
-      border: 1px solid rgba(26,26,26,.12);
-      border-radius: 20px;
+      position:relative;
+      border-radius:26px;
       overflow:hidden;
-      box-shadow: 0 10px 28px rgba(0,0,0,.06);
-      transition: .18s ease;
+      isolation:isolate;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.28) 58%, rgba(244,236,225,.42)),
+        linear-gradient(135deg, rgba(234,212,171,.16), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.52);
+      box-shadow:
+        0 14px 38px rgba(0,0,0,.10),
+        0 26px 60px rgba(0,0,0,.08),
+        inset 0 1px 0 rgba(255,255,255,.58);
+      transition:
+        transform .28s ease,
+        box-shadow .28s ease,
+        border-color .28s ease;
+      backdrop-filter: blur(12px) saturate(130%);
+      -webkit-backdrop-filter: blur(12px) saturate(130%);
     }
-    .card:hover{ transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0,0,0,.10); }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(125deg, transparent 14%, rgba(255,255,255,.34) 34%, rgba(255,255,255,.07) 46%, transparent 58%);
+      transform: translateX(-130%);
+      transition: transform .9s ease;
+      pointer-events:none;
+      z-index:3;
+    }
+
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:26px;
+      padding:1px;
+      background: linear-gradient(135deg, rgba(255,255,255,.45), rgba(182,138,69,.30), rgba(255,255,255,.12));
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events:none;
+      z-index:2;
+    }
+
+    .card:hover{
+      transform: translateY(-8px) scale(1.01);
+      box-shadow:
+        0 24px 58px rgba(0,0,0,.14),
+        0 34px 80px rgba(182,138,69,.10),
+        inset 0 1px 0 rgba(255,255,255,.7);
+      border-color: rgba(255,255,255,.7);
+    }
+
+    .card:hover::before{
+      transform: translateX(130%);
+    }
 
     .thumb{
-      height: 190px;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-color: rgba(0,0,0,.08);
+      height:220px;
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      background-color:rgba(0,0,0,.08);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .thumb::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(12,9,7,.04), transparent 35%, rgba(12,9,7,.32)),
+        radial-gradient(circle at 20% 15%, rgba(255,255,255,.18), transparent 30%);
+      pointer-events:none;
+      z-index:1;
+    }
+
+    .thumb::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height:85px;
+      background: linear-gradient(180deg, transparent, rgba(18,12,8,.42));
+      pointer-events:none;
+      z-index:1;
     }
 
     .info{
-      padding: 14px 14px 16px;
+      position:relative;
+      z-index:4;
+      padding:18px 18px 18px;
       display:flex;
       justify-content:space-between;
-      gap:12px;
+      gap:14px;
       align-items:flex-start;
+      background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.02));
     }
+
+    .info > div:first-child{
+      min-width:0;
+      flex:1;
+    }
+
     .name{
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-    }
-    .desc{
-      margin-top: 6px;
-      font-size: 12px;
-      color: rgba(26,26,26,.62);
-      line-height: 1.45;
-    }
-    .price{
       font-family:"Cormorant Garamond", serif;
-      font-weight: 700;
-      font-size: 18px;
-      letter-spacing:.06em;
-      white-space: nowrap;
+      font-weight:700;
+      font-size:24px;
+      letter-spacing:.05em;
+      text-transform:none;
+      line-height:1.1;
+      color:#1b1510;
+      text-shadow:0 1px 0 rgba(255,255,255,.25);
+    }
+
+    .desc{
+      margin-top:9px;
+      font-size:12.5px;
+      color:rgba(23,20,17,.68);
+      line-height:1.68;
+      max-width:95%;
+    }
+
+    .price{
+      flex:0 0 auto;
+      font-family:"Cormorant Garamond", serif;
+      font-weight:700;
+      font-size:21px;
+      letter-spacing:.03em;
+      white-space:nowrap;
+      color:#20160d;
+      padding:10px 14px;
+      border-radius:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(247,239,229,.80));
+      border:1px solid rgba(182,138,69,.28);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.82),
+        0 10px 22px rgba(182,138,69,.10);
+      text-shadow:0 1px 0 rgba(255,255,255,.45);
     }
 
     section[id]{ scroll-margin-top: calc(var(--topbarH) + 14px); }
 
     footer{
-      padding: 26px 0;
-      border-top:1px solid var(--line);
-      color: rgba(26,26,26,.58);
-      font-size: 12px;
+      padding:28px 0;
+      border-top:1px solid rgba(182,138,69,.16);
+      color:rgba(23,20,17,.56);
+      font-size:12px;
       text-align:center;
-      background: rgba(244,238,230,.55);
+      background: linear-gradient(180deg, rgba(255,255,255,.26), rgba(244,238,230,.55));
+      backdrop-filter: blur(8px);
     }
 
-    /* =========================
-       ✅ RESPONSIVE
-       ========================= */
-    @media (max-width: 1100px){
-      .nav{ gap: 10px; }
-      .nav a{ font-size: 10.5px; letter-spacing:.16em; }
+    .reveal{
+      opacity:0;
+      transform:translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
     }
-    @media (max-width: 980px){
+
+    .reveal.in{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(18px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @keyframes shine{
+      0%{ transform: translateX(-120%); }
+      45%{ transform: translateX(120%); }
+      100%{ transform: translateX(120%); }
+    }
+
+    @media (max-width:1100px){
+      .nav{ gap:10px; }
+      .nav a{ font-size:10.5px; letter-spacing:.16em; }
+      .hero h1{ font-size:46px; }
+      .title-row h2{ font-size:28px; }
+      .name{ font-size:22px; }
+    }
+
+    @media (max-width:980px){
       .nav{ display:none; }
       .mobile-chips{ display:block; }
       .brand{ min-width:auto; }
-      .actions{ min-width:auto; padding-right: 10px; }
-      .hero{ min-height: 300px; }
-      .hero h1{ font-size: 38px; }
+      .actions{ min-width:auto; padding-right:10px; }
+      .hero{ min-height:360px; }
+      .hero h1{ font-size:42px; }
       .grid{ grid-template-columns: repeat(2, 1fr); }
-      .thumb{ height: 170px; }
+      .thumb{ height:200px; }
     }
-    @media (max-width: 560px){
-      :root{ --topbarH: 70px; }
+
+    @media (max-width:560px){
+      :root{ --topbarH:70px; }
       body{ padding-top: var(--topbarH); }
-      .btn{ padding: 0 12px; height: 38px; border-radius: 12px; }
-      .hero .panel{ padding: 18px 14px; }
-      .hero h1{ font-size: 34px; }
-      .grid{ grid-template-columns: 1fr; }
-      .thumb{ height: 185px; }
+
+      .container{ padding: 0 16px; }
+
+      .brand .t1{ font-size:18px; }
+      .brand .t2{ font-size:10px; letter-spacing:.20em; }
+
+      .btn{
+        padding:0 12px;
+        height:38px;
+        border-radius:12px;
+        font-size:11px;
+      }
+
+      .hero{
+        min-height:320px;
+        padding:22px 0;
+      }
+
+      .hero .panel{
+        width:min(100% - 24px, 860px);
+        padding:22px 14px;
+        border-radius:22px;
+      }
+
+      .hero h1{
+        font-size:36px;
+        letter-spacing:.14em;
+      }
+
+      .hero p{ font-size:13px; }
+
+      .title-row h2{
+        font-size:24px;
+        line-height:1.5;
+      }
+
+      .block h3{ font-size:21px; }
+
+      .grid{
+        grid-template-columns:1fr;
+        gap:18px;
+      }
+
+      .thumb{ height:210px; }
+
+      .info{
+        padding:16px;
+        gap:10px;
+      }
+
+      .name{ font-size:22px; }
+      .desc{ font-size:12.5px; }
+
+      .price{
+        font-size:19px;
+        padding:8px 12px;
+        border-radius:14px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{
+        animation:none !important;
+        transition:none !important;
+        scroll-behavior:auto !important;
+      }
+      .reveal{
+        opacity:1 !important;
+        transform:none !important;
+      }
     }
   </style>
 </head>
@@ -376,7 +745,6 @@
           </div>
         </a>
 
-        <!-- ✅ ÚJ KATEGÓRIÁK (desktop) -->
         <nav class="nav" aria-label="Kategóriák (desktop)">
           <a href="#uveges">Üveges sörök</a>
           <a href="#dobozos">Dobozos sörök</a>
@@ -395,7 +763,6 @@
     </div>
   </header>
 
-  <!-- ✅ ÚJ KATEGÓRIÁK (mobil chip menü) -->
   <div class="mobile-chips" aria-label="Kategóriák (mobil)">
     <div class="chips">
       <a class="chip" href="#uveges" data-chip="uveges">Üveges</a>
@@ -413,187 +780,115 @@
     <div class="panel">
       <div class="kicker">Andrea Büfé</div>
       <h1>ITALLAP</h1>
-      <p>Válassz kategóriát fent, és egy kattintással a megfelelő részhez ugrunk.</p>
+      <p>Válassz kategóriát fent, és egy kattintással a megfelelő részhez ugrunk. Egységes megjelenés, prémium hangulat, elegáns italbemutatás.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="title-row">
+      <div class="title-row reveal">
         <div class="small">Kategóriák</div>
         <h2>ÜVEGES SÖRÖK · DOBOZOS SÖRÖK · CSAPOLT SÖRÖK · RÖVID ITALOK · KÁVÉ · ENERGIA ITALOK · ÜDÍTŐK · ÁSVÁNYVÍZ</h2>
         <div class="divider"></div>
       </div>
 
-      <!--
-        ======================================================
-        ✅ 10 DB HELY / KATEGÓRIA
-        ✅ KÉPEK NEVE: kategória-rövidítés + sorszám
-           uveg-01.jpg ... uveg-10.jpg
-           dob-01.jpg  ... dob-10.jpg
-           csap-01.jpg ... csap-10.jpg
-           rovid-01.jpg... rovid-10.jpg
-           kave-01.jpg ... kave-10.jpg
-           en-01.jpg   ... en-10.jpg
-           udi-01.jpg  ... udi-10.jpg
-           viz-01.jpg  ... viz-10.jpg
-        (A képek az index.html mellé mennek, ugyanabba a mappába!)
-        ======================================================
-      -->
-
-      <!-- ÜVEGES SÖRÖK -->
-      <section class="block" id="uveges">
+      <section class="block reveal" id="uveges">
         <h3>Üveges sörök</h3>
         <div class="grid">
-          <div class="card"><div class="thumb" style="background-image:url('uveg-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Arany Ászok</div><div class="desc">Leírás.</div></div><div class="price">750 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('uveg-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Dreher</div><div class="desc">Leírás.</div></div><div class="price">800 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('uveg-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Dreher 0% Alk</div><div class="desc">Leírás.</div></div><div class="price">800 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('uveg-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Dreher 330 ml </div><div class="desc">Leírás.</div></div><div class="price">550 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('uveg-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Dreher 330 ml 0% Alk</div><div class="desc">Leírás.</div></div><div class="price">550 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('uveg-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Kőbányai</div><div class="desc">Leírás.</div></div><div class="price">700 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('uveg-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Pilsner</div><div class="desc">Leírás.</div></div><div class="price">900 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('uveg-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Peroni Nastro Azzuro</div><div class="desc">Leírás.</div></div><div class="price">850 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('uveg-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Peroni Nastro Azzuro 0% alk</div><div class="desc">Leírás.</div></div><div class="price">850 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('uveg-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Peroni Nastro Capri 330 ml</div><div class="desc">Leírás.</div></div><div class="price">850 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-01.jpg')"></div><div class="info"><div><div class="name">Arany Ászok</div><div class="desc">Üveges kiszerelés.</div></div><div class="price">750 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-02.jpg')"></div><div class="info"><div><div class="name">Dreher</div><div class="desc">Üveges kiszerelés.</div></div><div class="price">800 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-03.jpg')"></div><div class="info"><div><div class="name">Dreher 0% Alk</div><div class="desc">Alkoholmentes változat.</div></div><div class="price">800 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-04.jpg')"></div><div class="info"><div><div class="name">Dreher 330 ml</div><div class="desc">Kisebb üveges kiszerelés.</div></div><div class="price">550 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-05.jpg')"></div><div class="info"><div><div class="name">Dreher 330 ml 0% Alk</div><div class="desc">Kisebb alkoholmentes kiszerelés.</div></div><div class="price">550 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-06.jpg')"></div><div class="info"><div><div class="name">Kőbányai</div><div class="desc">Üveges kiszerelés.</div></div><div class="price">700 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-07.jpg')"></div><div class="info"><div><div class="name">Pilsner</div><div class="desc">Prémium üveges sör.</div></div><div class="price">900 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-08.jpg')"></div><div class="info"><div><div class="name">Peroni Nastro Azzurro</div><div class="desc">Elegáns olasz lager.</div></div><div class="price">850 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-09.jpg')"></div><div class="info"><div><div class="name">Peroni Nastro Azzurro 0% Alk</div><div class="desc">Alkoholmentes változat.</div></div><div class="price">850 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('uveg-10.jpg')"></div><div class="info"><div><div class="name">Peroni Nastro Capri 330 ml</div><div class="desc">Különleges kisebb kiszerelés.</div></div><div class="price">850 Ft</div></div></div>
         </div>
       </section>
 
-      <!-- DOBOZOS SÖRÖK -->
-      <section class="block" id="dobozos">
+      <section class="block reveal" id="dobozos">
         <h3>Dobozos sörök</h3>
         <div class="grid">
-          <div class="card"><div class="thumb" style="background-image:url('dob-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Arany Ászok </div><div class="desc">Leírás.</div></div><div class="price">750 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('dob-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Dreher</div><div class="desc">Leírás.</div></div><div class="price">800 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('dob-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Dreher 0% Alk</div><div class="desc">Leírás.</div></div><div class="price">800 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('dob-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Kőbányai</div><div class="desc">Leírás.</div></div><div class="price">700 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('dob-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Pilsner</div><div class="desc">Leírás.</div></div><div class="price">900 Ft</div></div></div>
-          <!--
-		  <div class="card"><div class="thumb" style="background-image:url('dob-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-06 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('dob-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-07 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('dob-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('dob-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('dob-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">DOBOZOS-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          -->
-		</div>
-      </section>
-
-      <!-- CSAPOLT SÖRÖK -->
-      <section class="block" id="csapolt">
-        <h3>Csapolt sörök</h3>
-        <div class="grid">
-          <div class="card"><div class="thumb" style="background-image:url('csap-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Arany Ászok</div><div class="desc">Pikoló / Pohár / Korsó.</div></div><div class="price">420 / 600 / 850 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('csap-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Dreher</div><div class="desc">Pikoló / Pohár / Korsó</div></div><div class="price">520 / 680 / 900 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('csap-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Dreher Barna</div><div class="desc">Pikoló / Pohár / Korsó</div></div><div class="price">600 / 800 / 1000 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('csap-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Floris meggyes</div><div class="desc">Pohár / Korsó</div></div><div class="price">1200 / 1800 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('csap-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">HB Búzasör</div><div class="desc">Pikoló / Pohár / Korsó</div></div><div class="price">700 / 850 / 1350 Ft</div></div></div>
-          <!--
-		  <div class="card"><div class="thumb" style="background-image:url('csap-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-06 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('csap-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-07 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('csap-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('csap-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('csap-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">CSAPOLT-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          -->
-		</div>
-      </section>
-
-      <!-- RÖVID ITALOK -->
-      <section class="block" id="rovid">
-        <h3>Rövid italok</h3>
-        <div class="grid">
-          <div class="card"><div class="thumb" style="background-image:url('rovid-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Hubertus</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">480 / 700 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('rovid-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Carolans</div><div class="desc">3 cl / 5 cl</div></div><div class="price">480 / 700 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('rovid-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Vodka</div><div class="desc">3 cl / 5 cl</div></div><div class="price">480 / 700 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('rovid-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Unicum (Szilva/Barista)</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">680 / 900 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('rovid-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Vilmos</div><div class="desc">3 cl / 5 cl</div></div><div class="price">680 / 900 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('rovid-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Portorikói Rum</div><div class="desc">3 cl / 5 cl</div></div><div class="price">680 / 900 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('rovid-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Bumbu Rum</div><div class="desc">3 cl / 5 cl</div></div><div class="price">1100 / 1650 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('rovid-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Jim Beam</div><div class="desc">3 cl / 5 cl</div></div><div class="price">680 / 900 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('rovid-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Jack Daniel's</div><div class="desc">3 cl / 5 cl</div></div><div class="price">680 / 900 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Beefeater Gin</div><div class="desc">3 cl / 5 cl</div></div><div class="price">680 / 900 Ft</div></div></div>
-		  <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Beefeater Pink Gin</div><div class="desc">3 cl / 5 cl</div></div><div class="price">680 / 900 Ft</div></div></div>
-		  <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Metaxa</div><div class="desc">3 cl / 5 cl</div></div><div class="price">680 / 900 Ft</div></div></div>
-		  <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Jagermeister</div><div class="desc">3 cl / 5 cl</div></div><div class="price">680 / 850 Ft</div></div></div>
-		  <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Fütyülős Mézes</div><div class="desc">3 cl / 5 cl</div></div><div class="price">680 / 850 Ft</div></div></div>
-		  <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Bolyhos pálinka</div><div class="desc">3 cl / 5 cl</div></div><div class="price">750 / 1000 Ft</div></div></div>
-		  <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Disznótoros</div><div class="desc">3 cl / 5 cl</div></div><div class="price">1100 / 1650 Ft</div></div></div>
-		  <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Tátratea</div><div class="desc">3 cl / 5 cl</div></div><div class="price">850 / 1150 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-01.jpg')"></div><div class="info"><div><div class="name">Arany Ászok</div><div class="desc">Dobozos kiszerelés.</div></div><div class="price">750 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-02.jpg')"></div><div class="info"><div><div class="name">Dreher</div><div class="desc">Dobozos kiszerelés.</div></div><div class="price">800 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-03.jpg')"></div><div class="info"><div><div class="name">Dreher 0% Alk</div><div class="desc">Alkoholmentes dobozos változat.</div></div><div class="price">800 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-04.jpg')"></div><div class="info"><div><div class="name">Kőbányai</div><div class="desc">Dobozos kiszerelés.</div></div><div class="price">700 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('dob-05.jpg')"></div><div class="info"><div><div class="name">Pilsner</div><div class="desc">Prémium dobozos sör.</div></div><div class="price">900 Ft</div></div></div>
         </div>
       </section>
 
-      <!-- KÁVÉ -->
-      <section class="block" id="kave">
+      <section class="block reveal" id="csapolt">
+        <h3>Csapolt sörök</h3>
+        <div class="grid">
+          <div class="card"><div class="thumb" style="background-image:url('csap-01.jpg')"></div><div class="info"><div><div class="name">Arany Ászok</div><div class="desc">Pikoló / Pohár / Korsó.</div></div><div class="price">420 / 600 / 850 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('csap-02.jpg')"></div><div class="info"><div><div class="name">Dreher</div><div class="desc">Pikoló / Pohár / Korsó.</div></div><div class="price">520 / 680 / 900 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('csap-03.jpg')"></div><div class="info"><div><div class="name">Dreher Barna</div><div class="desc">Pikoló / Pohár / Korsó.</div></div><div class="price">600 / 800 / 1000 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('csap-04.jpg')"></div><div class="info"><div><div class="name">Floris meggyes</div><div class="desc">Pohár / Korsó.</div></div><div class="price">1200 / 1800 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('csap-05.jpg')"></div><div class="info"><div><div class="name">HB Búzasör</div><div class="desc">Pikoló / Pohár / Korsó.</div></div><div class="price">700 / 850 / 1350 Ft</div></div></div>
+        </div>
+      </section>
+
+      <section class="block reveal" id="rovid">
+        <h3>Rövid italok</h3>
+        <div class="grid">
+          <div class="card"><div class="thumb" style="background-image:url('rovid-01.jpg')"></div><div class="info"><div><div class="name">Hubertus</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">480 / 700 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-02.jpg')"></div><div class="info"><div><div class="name">Carolans</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">480 / 700 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-03.jpg')"></div><div class="info"><div><div class="name">Vodka</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">480 / 700 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-04.jpg')"></div><div class="info"><div><div class="name">Unicum (Szilva / Barista)</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">680 / 900 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-05.jpg')"></div><div class="info"><div><div class="name">Vilmos</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">680 / 900 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-06.jpg')"></div><div class="info"><div><div class="name">Portorikói Rum</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">680 / 900 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-07.jpg')"></div><div class="info"><div><div class="name">Bumbu Rum</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">1100 / 1650 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-08.jpg')"></div><div class="info"><div><div class="name">Jim Beam</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">680 / 900 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-09.jpg')"></div><div class="info"><div><div class="name">Jack Daniel’s</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">680 / 900 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div><div class="name">Beefeater Gin</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">680 / 900 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div><div class="name">Beefeater Pink Gin</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">680 / 900 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div><div class="name">Metaxa</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">680 / 900 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div><div class="name">Jägermeister</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">680 / 850 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div><div class="name">Fütyülős Mézes</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">680 / 850 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div><div class="name">Bolyhos pálinka</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">750 / 1000 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div><div class="name">Disznótoros</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">1100 / 1650 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('rovid-10.jpg')"></div><div class="info"><div><div class="name">Tátratea</div><div class="desc">3 cl / 5 cl.</div></div><div class="price">850 / 1150 Ft</div></div></div>
+        </div>
+      </section>
+
+      <section class="block reveal" id="kave">
         <h3>Kávé</h3>
         <div class="grid">
-          <div class="card"><div class="thumb" style="background-image:url('kave-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Sima tejszines</div><div class="desc">Leírás.</div></div><div class="price">500 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('kave-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Tejes Kávé</div><div class="desc">Leírás.</div></div><div class="price">650 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('kave-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Habos Kávé</div><div class="desc">Leírás.</div></div><div class="price">650 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('kave-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Cappuccino</div><div class="desc">Leírás.</div></div><div class="price">700 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('kave-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Forró csokoládé</div><div class="desc">Leírás.</div></div><div class="price">700 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('kave-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Latte Macchiato</div><div class="desc">Leírás.</div></div><div class="price">850 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('kave-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Jegeskávé</div><div class="desc">Expresszó,tej,jég,1gombóc vanília fagyi,tejszínhab,kakaó/fahéj.</div></div><div class="price">1100 Ft</div></div></div>
-          <!--
-		  <div class="card"><div class="thumb" style="background-image:url('kave-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">KÁVÉ-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('kave-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">KÁVÉ-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('kave-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">KÁVÉ-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-           -->
-		</div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-01.jpg')"></div><div class="info"><div><div class="name">Sima tejszínes</div><div class="desc">Klasszikus tejszínes kávé.</div></div><div class="price">500 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-02.jpg')"></div><div class="info"><div><div class="name">Tejes kávé</div><div class="desc">Lágy, tejes változat.</div></div><div class="price">650 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-03.jpg')"></div><div class="info"><div><div class="name">Habos kávé</div><div class="desc">Krémes habbal a tetején.</div></div><div class="price">650 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-04.jpg')"></div><div class="info"><div><div class="name">Cappuccino</div><div class="desc">Klasszikus cappuccino.</div></div><div class="price">700 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-05.jpg')"></div><div class="info"><div><div class="name">Forró csokoládé</div><div class="desc">Selymes, meleg ital.</div></div><div class="price">700 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-06.jpg')"></div><div class="info"><div><div class="name">Latte Macchiato</div><div class="desc">Réteges, tejes kávékülönlegesség.</div></div><div class="price">850 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('kave-07.jpg')"></div><div class="info"><div><div class="name">Jegeskávé</div><div class="desc">Eszpresszó, tej, jég, 1 gombóc vaníliafagyi, tejszínhab, kakaó vagy fahéj.</div></div><div class="price">1100 Ft</div></div></div>
+        </div>
       </section>
 
-      <!-- ENERGIA ITALOK -->
-      <section class="block" id="energia">
+      <section class="block reveal" id="energia">
         <h3>Energia italok</h3>
         <div class="grid">
-          <div class="card"><div class="thumb" style="background-image:url('en-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Hell</div><div class="desc">Leírás.</div></div><div class="price">450 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('en-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Hell Zero</div><div class="desc">Leírás.</div></div><div class="price">450 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('en-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Red Bull</div><div class="desc">Leírás.</div></div><div class="price">850 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('en-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Guarana dinnyés</div><div class="desc">Leírás.</div></div><div class="price">400 Ft</div></div></div>
-          <!--
-		  <div class="card"><div class="thumb" style="background-image:url('en-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-05 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('en-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-06 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('en-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-07 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('en-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('en-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('en-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ENERGIA-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          -->
-		</div>
+          <div class="card"><div class="thumb" style="background-image:url('en-01.jpg')"></div><div class="info"><div><div class="name">Hell</div><div class="desc">Klasszikus energiaital.</div></div><div class="price">450 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('en-02.jpg')"></div><div class="info"><div><div class="name">Hell Zero</div><div class="desc">Cukormentes változat.</div></div><div class="price">450 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('en-03.jpg')"></div><div class="info"><div><div class="name">Red Bull</div><div class="desc">Prémium energiaital.</div></div><div class="price">850 Ft</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('en-04.jpg')"></div><div class="info"><div><div class="name">Guarana dinnyés</div><div class="desc">Gyümölcsösebb, könnyedebb ízvilág.</div></div><div class="price">400 Ft</div></div></div>
+        </div>
       </section>
 
-      <!-- ÜDÍTŐK -->
-      <section class="block" id="uditok">
+      <section class="block reveal" id="uditok">
         <h3>Üdítők</h3>
         <div class="grid">
-          <div class="card"><div class="thumb" style="background-image:url('udi-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Kimért Rostos</div><div class="desc"></div></div><div class="price">200 Ft / dl</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('udi-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Kimért szénsavas</div><div class="desc"></div></div><div class="price">200 Ft / dl</div></div></div>
-          <!--
-		  <div class="card"><div class="thumb" style="background-image:url('udi-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-03 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('udi-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-04 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('udi-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-05 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('udi-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-06 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('udi-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-07 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('udi-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('udi-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('udi-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÜDÍTŐ-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          -->
-		</div>
+          <div class="card"><div class="thumb" style="background-image:url('udi-01.jpg')"></div><div class="info"><div><div class="name">Kimért rostos</div><div class="desc">Frissítő, gyümölcsösebb ízvilág.</div></div><div class="price">200 Ft / dl</div></div></div>
+          <div class="card"><div class="thumb" style="background-image:url('udi-02.jpg')"></div><div class="info"><div><div class="name">Kimért szénsavas</div><div class="desc">Szénsavas üdítő kimérve.</div></div><div class="price">200 Ft / dl</div></div></div>
+        </div>
       </section>
 
-      <!-- ÁSVÁNYVÍZ -->
-      <section class="block" id="asvanyviz">
+      <section class="block reveal" id="asvanyviz">
         <h3>Ásványvíz</h3>
         <div class="grid">
-          <div class="card"><div class="thumb" style="background-image:url('viz-01.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">Kimért szóda</div><div class="desc">Szénsavas</div></div><div class="price">50 Ft / dl</div></div></div>
-          <!--
-		  <div class="card"><div class="thumb" style="background-image:url('viz-02.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-02 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('viz-03.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-03 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('viz-04.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-04 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('viz-05.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-05 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('viz-06.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-06 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('viz-07.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-07 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('viz-08.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-08 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('viz-09.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-09 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          <div class="card"><div class="thumb" style="background-image:url('viz-10.jpg')"></div><div class="info"><div style="min-width:0"><div class="name">ÁSVÁNYVÍZ-10 NÉV</div><div class="desc">Leírás.</div></div><div class="price">0 Ft</div></div></div>
-          -->
-		</div>
+          <div class="card"><div class="thumb" style="background-image:url('viz-01.jpg')"></div><div class="info"><div><div class="name">Kimért szóda</div><div class="desc">Szénsavas frissítő.</div></div><div class="price">50 Ft / dl</div></div></div>
+        </div>
       </section>
 
     </div>
@@ -630,21 +925,18 @@
     sections.forEach(s => io.observe(s));
     chips.forEach(c => c.addEventListener("click", () => setActive(c.dataset.chip)));
     setActive("uveges");
+
+    const reveals = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("in");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(el => revealObserver.observe(el));
   </script>
-
-  <!--
-    ✅ KÉPEK AZ index.html MELLÉ:
-    - ital-hero.jpg
-
-    10-10 kép / kategória:
-    - uveg-01.jpg ... uveg-10.jpg
-    - dob-01.jpg  ... dob-10.jpg
-    - csap-01.jpg ... csap-10.jpg
-    - rovid-01.jpg... rovid-10.jpg
-    - kave-01.jpg ... kave-10.jpg
-    - en-01.jpg   ... en-10.jpg
-    - udi-01.jpg  ... udi-10.jpg
-    - viz-01.jpg  ... viz-10.jpg
-  -->
 </body>
 </html>
